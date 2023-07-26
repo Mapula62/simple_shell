@@ -124,7 +124,7 @@ int _strlen(char *size);
 int _strcmp(char *s, char *n);
 char *starts_with(const char *needle, const char *haystack);
 char *_strcat(char *src, char *dest);
-ssize_t buff(info_t *i, size_t *l, char **buffer)
+ssize_t buf(info_t *i, size_t *l, char **buffer)
 ssize_t _gets(info_t *i);
 ssize_t _reads(info_t *i, char *buffer, size_t *s);
 int _getsline(info_t *i, size_t *l, char **p);
@@ -168,7 +168,7 @@ int _command(info_t *i, char *p);
 char *duplicates_chr(char * *pstr, int str, int stp);
 char *find_path(info_t *i, char *pstr, char *command);
 void checks_chain(info_t *i, char *buffer, size_t *pos, size_t n, size_t l);
-void init_info(info_t *i);
+void initializes(info_t *i);
 void get_info(info_t *i, char **argv);
 void frees_info(info_t *i, int total);
 int hsh(info_t *i, char **argv);

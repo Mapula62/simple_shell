@@ -7,25 +7,26 @@
  * @position: input current position
  * Return: 1 otherwise 0
  */
-int _chain(info_t *i, char *buffer, size_t *position)
+int _chain(info_t *i, char *buffer, size_t *position);
 {
-size_t t = *s;
+size_t t;
+char *s;
 if (buffer[t] == '|' && buffer[t + 1] == '|')
 {
 buffer[t] = 0;
 t++;
-i->cmd_buffer_type = CMD_OR;
+i->cmd_buf_type = CMD_OR;
 }
 if (buffer[t] == '&' && buffer[t + 1] == '&')
 {
 buffer[t] = 0;
 t++;
-i->cmd_buffer_type = CMD_AND;
+i->cmd_buf_type = CMD_AND;
 }
 else if (buffer[t] == ';')
 {
 buffer[t] = 0;
-i->cmd_buffer_type = CMD_CHAIN;
+i->cmd_buf_type = CMD_CHAIN;
 }
 else
 return (0);
@@ -41,10 +42,10 @@ return (1);
  * @length: input length of buffer
  * Return: nothing
  */
-void commd_chain(info_t *i, char *buffer, size_t *pos, size_t n, size_t length)
+void commd_chain(info_t *i, char *buffer, size_t *pos, size_t n, size_t length);
 {
 size_t a = *s;
-if (i->cmd_buffer_type == CMD_AND)
+if (i->cmd_buf_type == CMD_AND)
 {
 if (i->status)
 {
@@ -52,7 +53,7 @@ buffer[n] = 0;
 a = length;
 }
 }
-if (i->cmd_buffer_type == CMD_OR)
+if (i->cmd_buf_type == CMD_OR)
 {
 if (!i->status)
 {
@@ -67,21 +68,23 @@ a = length;
  * @i: input parameter struct
  * Return: 1 else 0
  */
-int replace_alias(info_t *i)
-
+int replace_alias(info_t *i);
+{
 char *s;
 list_t *n;
 int a;
-for (a = 0; a < 10; a++)
 {
-n = node_starts_with(i->alias, i->argv[0], '=');
+for (a = 0, a < 10, a++)
+{
+n = starts_with(i->alias, i->argv[0], '=');
 if (!n)
 return (0);
+}
 free(i->argv[0]);
-s = _strchr(n->str, '=');
+s = strchr(n->str, '=');
 if (!s)
 return (0);
-s = _strdup(s + 1);
+s = strdup(s + 1);
 if (!s)
 return (0);
 i->argv[0] = s;
@@ -93,7 +96,7 @@ return (1);
  * @i: input parameter struct
  * Return: 1 otherwise 0
  */
-int replace_var(info_t *i)
+int replace_var(info_t *i);
 {
 list_t *n;
 int a = 0;
@@ -113,7 +116,7 @@ replace_string(&(i->argv[a]),
 _strdup(converts_number(getpid(), 10, 0)));
 continue;
 }
-n = node_stars_with(i->env, &i->argv[a][1], '=');
+n = starts_with(i->env, &i->argv[a][1], '=');
 if (n)
 {
 replace_string(&(i->argv[a]),
@@ -130,7 +133,7 @@ return (0);
  * @o: input address of old string
  * Return: 1 else 0
  */
-int replace_string(char **o, char *n)
+int replace_string(char **o, char *n);
 {
 free(*o);
 *o = n;
