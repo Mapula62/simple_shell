@@ -92,6 +92,51 @@ int histcount;
 {NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, \
 0, 0, 0}
 
+/**
+ *struct builtin - contains a builtin string and related function
+ *@type: the builtin command flag
+ *@func: the function
+ */
+typedef struct builtin
+{
+char *type;
+int (*func)(info_t *);
+} builtin_table;
+
+int _strlen(char *);
+int _strcmp(char *, char *);
+char *starts_with(const char *, const char *);
+int _history(info_t *);
+int _alias(info_t *);
+char *get_env(info_t *, const char *);
+int _env(info_t *);
+int set_env(info_t *);
+int unset_env(info_t *);
+char *get_history_file(info_t *info);
+int write_history(info_t *info);
+int read_history(info_t *info);
+int build_history_list(info_t *info, char *buf, int linecount);
+int renumber_history(info_t *info);
+int populate_env(info_t *);
+char **get_env(info_t *);
+int unset_env(info_t *, char *);
+int set_env(info_t *, char *, char *);
+char *_strncpy(char *, char *, int);
+char *_strncat(char *, char *, int);
+char *_strchr(char *, char);
+int _exit(info_t *);
+int _cd(info_t *);
+int _help(info_t *);
+int is_chain(info_t *, char *, size_t *);
+void _chain(info_t *, char *, size_t *, size_t, size_t);
+int replace_alias(info_t *);
+int replace_vars(info_t *);
+int replace_string(char **, char *);
+char *_strcat(char *, char *);
+char *_strcpy(char *, char *);
+char *_strdup(const char *);
+void _puts(char *);
+int _putchar(char);
 int _putchar(char c);
 int _chain(info_t *i, char *buffer, size_t *position);
 void commd_chain(info_t *i, char *buffer, size_t *pos, size_t n, size_t length);
